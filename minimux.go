@@ -2,6 +2,7 @@ package minimux
 
 import (
 	"net/http"
+	"path"
 	"strings"
 )
 
@@ -23,6 +24,15 @@ func New() *MiniMux {
 
 func (m *MiniMux) matchPath(methodwpath string) (string, bool) {
 
+	// Get URL without parameters
+	if i := strings.Index(methodwpath, "?"); i != -1 {
+		methodwpath = methodwpath[:i]
+	}
+
+	// Clean URL
+	methodwpath = path.Clean(methodwpath)
+
+	// Direct match first
 	_, ok := m.routes[methodwpath]
 	if ok {
 		return methodwpath, true
