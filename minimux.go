@@ -38,6 +38,7 @@ func (m *MiniMux) matchPath(methodwpath string) (string, bool) {
 		return methodwpath, true
 	}
 
+	// ... same old... same old ...
 	for _, path := range m.sortedRegPaths {
 		if strings.HasPrefix(methodwpath, path) && path[len(path)-1] == '/' {
 			return path, true
