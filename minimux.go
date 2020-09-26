@@ -40,7 +40,7 @@ func (m *MiniMux) matchPath(methodwpath string) (string, bool) {
 
 	// ... same old... same old ...
 	for _, path := range m.sortedRegPaths {
-		if strings.HasPrefix(methodwpath, path) && path[len(path)-1] == '/' {
+		if strings.HasPrefix(methodwpath+"/", path) && path[len(path)-1] == '/' {
 			return path, true
 		}
 	}
@@ -49,7 +49,7 @@ func (m *MiniMux) matchPath(methodwpath string) (string, bool) {
 }
 
 func (m *MiniMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	methodWPath := r.Method + r.URL.EscapedPath()
+	methodWPath := r.Method + r.URL.Path
 
 	path, ok := m.matchPath(methodWPath)
 
